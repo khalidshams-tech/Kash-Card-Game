@@ -45,7 +45,8 @@ def compute_round(scores: Dict[str, int], players: List[str], required: Dict[str
             if available <= 0:
                 continue
             take = min(remaining, available)
-            pending_swaps.setdefault(debtor, {})[creditor] = pending_swaps[debtor].get(creditor, 0) + take
+            debtor_swaps = pending_swaps.setdefault(debtor, {})
+            debtor_swaps[creditor] = debtor_swaps.get(creditor, 0) + take
             extra[creditor] = available - take
             remaining -= take
         # If remaining > 0, nothing else to do here (warning could be logged by caller)
